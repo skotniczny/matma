@@ -4,13 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/matma/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matma</title>
-    <script type="module" crossorigin src="/matma/assets/index-BQfU3Z7J.js"></script>
-    <link rel="stylesheet" crossorigin href="/matma/assets/index-CKbxaoj2.css">
+    <title>Matma | Tabliczka mnożenia</title>
+    <script type="module" crossorigin src="/matma/assets/index-BT4iILgB.js"></script>
+    <link rel="stylesheet" crossorigin href="/matma/assets/index-Dlobkmt7.css">
   </head>
   <body>
     <div id="app">
       <div>
+        <menu id="appMenu" class="app-menu">
+          <ul>
+            <li><a href="/">Mnożenie</a></li>
+            <li><a href="/dodawanie" onclick="history.pushState({focus: document.activeElement.id}, '', './dodawanie')">Dodawanie</a></li>
+          </ul>
+        </menu>
         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
           <img src="./vite.svg" class="logo vanilla" alt="Vite logo" />
         </a>
