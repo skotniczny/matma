@@ -1,3 +1,5 @@
+import { elt } from './dom'
+
 const rowTemplate = (strings, idx, key, repetitions, correctAnswers, ratio) => {
   const str1 = strings[0]
   const str2 = strings[1]
@@ -7,10 +9,9 @@ const rowTemplate = (strings, idx, key, repetitions, correctAnswers, ratio) => {
   const str6 = strings[5]
 
   const lp = idx + 1
-  const operation = key.split('_').join('×')
   const ratioStr = (ratio * 100).toFixed()
 
-  return `${str1}${lp}${str2}${operation}${str3}${repetitions}${str4}${correctAnswers}${str5}${ratioStr}${str6}`
+  return `${str1}${lp}${str2}${key}${str3}${repetitions}${str4}${correctAnswers}${str5}${ratioStr}${str6}`
 }
 
 export default function resultsTable (resultArray) {
@@ -34,8 +35,9 @@ export default function resultsTable (resultArray) {
         <tr>
       `)
   }
-  const table = document.createElement('table')
-  table.className = 'table'
-  table.innerHTML = output.join('')
+  const table = elt('table', {
+    className: 'table',
+    innerHTML: output.join(''),
+  })
   return table
 }

@@ -4,12 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matma</title>
+    <title>Matma | Tabliczka mnożenia</title>
     <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <div id="app">
       <div>
+        <menu id="appMenu" class="app-menu">
+          <ul>
+            <li><a href="/">Mnożenie</a></li>
+            <li><a href="/dodawanie" onclick="history.pushState({focus: document.activeElement.id}, '', './dodawanie')">Dodawanie</a></li>
+          </ul>
+        </menu>
         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
           <img src="./vite.svg" class="logo vanilla" alt="Vite logo" />
         </a>

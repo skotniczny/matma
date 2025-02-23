@@ -1,9 +1,29 @@
 import { elt } from './dom'
 import { getRandomInt } from './random'
+import { operations, func } from './app'
 
-function nextMultiplication (app, rowsEl, colsEl) {
+const calculateResult = (list, operator) => list.reduce((acc, item) => func[operator](acc, item))
+
+const nextMultiplication = () => {
   const rndRows = getRandomInt(1, 10)
   const rndCols = getRandomInt(1, 10)
+  return [rndRows, rndCols]
+}
+
+const nextAddition = () => {
+  const rndRows = getRandomInt(0, 100)
+  const rndCols = getRandomInt(0, 100 - rndRows)
+  return [rndRows, rndCols]
+}
+
+const nextOperation = (app, rowsEl, colsEl) => {
+  let [rndRows, rndCols] = [0, 0]
+  switch (app.board.operation) {
+    case operations.add: [rndRows, rndCols] = nextAddition()
+      break
+    case operations.multiply: [rndRows, rndCols] = nextMultiplication()
+      break
+  }
 
   rowsEl.value = rndRows
   colsEl.value = rndCols
@@ -13,6 +33,7 @@ function nextMultiplication (app, rowsEl, colsEl) {
 }
 
 function form (app) {
+  const operation = app.board.operation
   const formEl = elt('form', {
     name: 'equation',
     className: 'd-inline-flex',
@@ -28,7 +49,7 @@ function form (app) {
       const cols = Number(target.columns.value)
       const result = Number(target.result.value)
 
-      const isSuccess = (rows * cols) === result
+      const isSuccess = calculateResult([rows, cols], operation) === result
 
       app.updateHistory(isSuccess, rows, cols, result)
       app.updateResults()
@@ -37,7 +58,7 @@ function form (app) {
       target.result.focus()
 
       if (!isSuccess) return
-      nextMultiplication(app, rowsEl, colsEl)
+      nextOperation(app, rowsEl, colsEl)
     }
   })
 
@@ -46,12 +67,12 @@ function form (app) {
     min: 0,
     onblur: event => {
       setTimeout(() => {
-        if (document.activeElement === document.body) event.target.focus()
+        if (document.activeElement.type !== 'number') event.target.focus()
       }, 0)
     },
   }
   const inputElFactorsConfig = {
-    max: 10,
+    max: operation === operations.add ? 100 : 10,
     oninput: () => {
       resultEl.value = ''
       const rows = Number(rowsEl.value)
@@ -76,7 +97,7 @@ function form (app) {
   const resultEl = elt('input', {
     id: 'result',
     name: 'result',
-    max: 100,
+    max: operation === operations.add ? 200 : 100,
     autofocus: true,
     ...inputElConfig
   })
@@ -84,10 +105,10 @@ function form (app) {
     id: 'check',
     type: 'submit'
   }, 'Sprawdź wynik')
-  nextMultiplication(app, rowsEl, colsEl)
+  nextOperation(app, rowsEl, colsEl)
 
   formEl.appendChild(rowsEl)
-  formEl.appendChild(document.createTextNode('×'))
+  formEl.appendChild(document.createTextNode(operation))
   formEl.appendChild(colsEl)
   formEl.appendChild(document.createTextNode('='))
   formEl.appendChild(resultEl)

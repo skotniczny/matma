@@ -1,24 +1,26 @@
 import { qS as $, elt } from './dom'
+import { operations } from './app'
 
 class Board {
   #tds = []
-  constructor (rows, cols, title) {
+  constructor (rows, cols, operation) {
     this.rows = rows
     this.cols = cols
-    this.title = title
+    this.operation = operation
   }
 
   render () {
     const output = []
     const table = elt('table', { className: 'calc-table' })
     const tbody = elt('tbody')
+    const rowOffset = this.operation === operations.multiply ? 1 : 0
 
     const code = 'A'.charCodeAt(0)
     for (let i = 0; i < this.rows; i += 1) {
-      let row = `<tr data-row=${i + 1} data-row-letter=${String.fromCharCode(code + i)}>`
+      let row = `<tr data-row=${i + rowOffset} data-row-letter=${String.fromCharCode(code + i)}>`
 
       for (let j = 0; j < this.cols; j++) {
-        row += `<td data-row=${i + 1} data-col=${j + 1}></td>`
+        row += `<td data-row=${i + rowOffset} data-col=${j + 1}></td>`
       }
 
       row += '</tr>'
@@ -26,18 +28,30 @@ class Board {
     }
     tbody.innerHTML = output.join('')
     table.appendChild(tbody)
-    if (this.title) {
-      const caption = elt('caption', { textContent: this.title })
-      table.appendChild(caption)
-    }
+    const caption = elt('caption', {
+      textContent: this.operation === operations.multiply ? 'Tabliczka mnożenia' : 'Dodawanie'
+    })
+    table.appendChild(caption)
     this.#tds = Array.from($('td', table))
     return table
   }
 
   paint (rows, cols) {
-    for (const item of this.#tds) {
-      if (item.dataset.row <= rows && item.dataset.col <= cols) {
-        item.style.backgroundColor = '#ffaead'
+    if (this.operation === operations.multiply) {
+      for (const item of this.#tds) {
+        if (item.dataset.row <= rows && item.dataset.col <= cols) {
+          item.style.backgroundColor = '#ffaead'
+        }
+      }
+      return
+    }
+    if (this.operation === operations.add) {
+      for (let i = 0; i < this.#tds.length; i += 1) {
+        if (i < rows) {
+          this.#tds[i].style.backgroundColor = '#ffaead'
+        } else if (i < rows + cols) {
+          this.#tds[i].style.backgroundColor = '#b80000'
+        }
       }
     }
   }
