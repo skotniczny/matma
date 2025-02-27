@@ -6,7 +6,7 @@ import { qS as $, elt } from './dom'
 
 const app = {
   stats: new Stats(),
-  activeElementId: '#result',
+  activeElementId: '',
   counter: 0,
   init (board) {
     this.board = board
@@ -42,7 +42,7 @@ const app = {
     this.board.paint(rows, cols)
   },
   setActiveElementId (id) {
-    if (id.charAt(0) !== '#') throw new Error('Invalid id')
+    if (typeof id !== 'string' || id.charAt(0) !== '#') throw new Error('Invalid id')
     this.activeElementId = id
   }
 }
@@ -82,6 +82,7 @@ const initApp = (path, text) => {
       document.title = 'Matma | Tabliczka mnożenia'
       app.init(new Board(10, 10, operations.multiply))
   }
+  if (app.activeElementId) $(app.activeElementId).focus()
 }
 
 export { operations, func, boardCaption, initApp }
