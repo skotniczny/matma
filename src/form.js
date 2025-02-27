@@ -16,10 +16,18 @@ const nextAddition = () => {
   return [rndRows, rndCols]
 }
 
+const nextSubstraction = () => {
+  const rndRows = getRandomInt(0, 100)
+  const rndCols = getRandomInt(0, rndRows)
+  return [rndRows, rndCols]
+}
+
 const nextOperation = (rowsEl, colsEl) => {
   let [rndRows, rndCols] = [0, 0]
   switch (app.board.operation) {
     case operations.add: [rndRows, rndCols] = nextAddition()
+      break
+    case operations.sub: [rndRows, rndCols] = nextSubstraction()
       break
     case operations.multiply: [rndRows, rndCols] = nextMultiplication()
       break
@@ -74,7 +82,7 @@ function form () {
     },
   }
   const inputElFactorsConfig = {
-    max: operation === operations.add ? 100 : 10,
+    max: operation === operations.add || operation.sub ? 100 : 10,
     oninput: () => {
       resultEl.value = ''
       const rows = Number(rowsEl.value)

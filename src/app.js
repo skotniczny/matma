@@ -1,3 +1,4 @@
+import Board from './board'
 import Stats from './stats'
 import form from './form'
 import resultsTable from './resultTable'
@@ -48,13 +49,40 @@ const app = {
 
 const operations = {
   add: '+',
+  sub: '−',
   multiply: '×',
+}
+
+const boardCaption = {
+  [operations.multiply]: 'Tabliczka mnożenia',
+  [operations.add]: 'Dodawanie',
+  [operations.sub]: 'Odejmowanie'
 }
 
 const func = {
   [operations.add]: (a, b) => a + b,
+  [operations.sub]: (a, b) => a - b,
   [operations.multiply]: (a, b) => a * b,
 }
 
-export { operations, func }
+const initApp = (path, text) => {
+  switch (path) {
+    case '/dodawanie':
+      history.pushState({}, '', `.${path}`)
+      document.title = `Matma | ${text}`
+      app.init(new Board(10, 10, operations.add))
+      break
+    case '/odejmowanie':
+      history.pushState({}, '', `.${path}`)
+      document.title = `Matma | ${text}`
+      app.init(new Board(10, 10, operations.sub))
+      break
+    default:
+      history.pushState({}, '', './')
+      document.title = 'Matma | Tabliczka mnożenia'
+      app.init(new Board(10, 10, operations.multiply))
+  }
+}
+
+export { operations, func, boardCaption, initApp }
 export default app

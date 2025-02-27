@@ -1,5 +1,5 @@
 import { qS as $, elt } from './dom'
-import { operations } from './app'
+import { operations, boardCaption } from './app'
 
 class Board {
   #tds = []
@@ -29,7 +29,7 @@ class Board {
     tbody.innerHTML = output.join('')
     table.appendChild(tbody)
     const caption = elt('caption', {
-      textContent: this.operation === operations.multiply ? 'Tabliczka mnożenia' : 'Dodawanie'
+      textContent: boardCaption[this.operation]
     })
     table.appendChild(caption)
     this.#tds = Array.from($('td', table))
@@ -51,6 +51,15 @@ class Board {
           this.#tds[i].style.backgroundColor = '#ffaead'
         } else if (i < rows + cols) {
           this.#tds[i].style.backgroundColor = '#b80000'
+        }
+      }
+    }
+    if (this.operation === operations.sub) {
+      for (let i = 0; i < this.#tds.length; i += 1) {
+        if (i < rows - cols) {
+          this.#tds[i].style.backgroundColor = '#ffaead'
+        } else if (i < rows) {
+          this.#tds[i].style.backgroundColor = '#ffd5d4'
         }
       }
     }
