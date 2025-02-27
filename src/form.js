@@ -1,37 +1,11 @@
-import app, { operations, func } from './app'
+import app, { operations, func, nextArgumentsFunc } from './app'
 import { elt } from './dom'
-import { getRandomInt } from './random'
 
 const calculateResult = (list, operator) => list.reduce((acc, item) => func[operator](acc, item))
 
-const nextMultiplication = () => {
-  const rndRows = getRandomInt(1, 10)
-  const rndCols = getRandomInt(1, 10)
-  return [rndRows, rndCols]
-}
-
-const nextAddition = () => {
-  const rndRows = getRandomInt(0, 100)
-  const rndCols = getRandomInt(0, 100 - rndRows)
-  return [rndRows, rndCols]
-}
-
-const nextSubstraction = () => {
-  const rndRows = getRandomInt(0, 100)
-  const rndCols = getRandomInt(0, rndRows)
-  return [rndRows, rndCols]
-}
-
 const nextOperation = (rowsEl, colsEl) => {
-  let [rndRows, rndCols] = [0, 0]
-  switch (app.board.operation) {
-    case operations.add: [rndRows, rndCols] = nextAddition()
-      break
-    case operations.sub: [rndRows, rndCols] = nextSubstraction()
-      break
-    case operations.multiply: [rndRows, rndCols] = nextMultiplication()
-      break
-  }
+  const next = nextArgumentsFunc[app.board.operation]
+  const [rndRows, rndCols] = next()
 
   rowsEl.value = rndRows
   colsEl.value = rndCols

@@ -3,6 +3,7 @@ import Stats from './stats'
 import form from './form'
 import resultsTable from './resultTable'
 import { qS as $, elt } from './dom'
+import { getRandomInt } from './random'
 
 const app = {
   stats: new Stats(),
@@ -65,6 +66,24 @@ const func = {
   [operations.multiply]: (a, b) => a * b,
 }
 
+const nextArgumentsFunc = {
+  [operations.add]: () => {
+    const rndRows = getRandomInt(0, 100)
+    const rndCols = getRandomInt(0, 100 - rndRows)
+    return [rndRows, rndCols]
+  },
+  [operations.sub]: () => {
+    const rndRows = getRandomInt(0, 100)
+    const rndCols = getRandomInt(0, rndRows)
+    return [rndRows, rndCols]
+  },
+  [operations.multiply]: () => {
+    const rndRows = getRandomInt(1, 10)
+    const rndCols = getRandomInt(1, 10)
+    return [rndRows, rndCols]
+  }
+}
+
 const initApp = (path, text) => {
   switch (path) {
     case '/dodawanie':
@@ -85,5 +104,5 @@ const initApp = (path, text) => {
   if (app.activeElementId) $(app.activeElementId).focus()
 }
 
-export { operations, func, boardCaption, initApp }
+export { operations, func, nextArgumentsFunc, boardCaption, initApp }
 export default app
