@@ -5,11 +5,12 @@ import { qS as $, elt } from './dom'
 
 const app = {
   stats: new Stats(),
+  activeElementId: '#result',
   counter: 0,
   init (board) {
     this.board = board
-    $('#tableContainer').replaceChildren(app.board.render())
-    $('#form').replaceChildren(form(app))
+    $('#tableContainer').replaceChildren(board.render())
+    $('#form').replaceChildren(form())
   },
   updateResults () {
     const statsArr = this.stats.get()
@@ -33,6 +34,16 @@ const app = {
     $('h1')[0].textContent = message
     return message
   },
+  clearBoard () {
+    this.board.clear()
+  },
+  paintBoard (rows, cols) {
+    this.board.paint(rows, cols)
+  },
+  setActiveElementId (id) {
+    if (id.charAt(0) !== '#') throw new Error('Invalid id')
+    this.activeElementId = id
+  }
 }
 
 const operations = {

@@ -1,6 +1,6 @@
+import app, { operations, func } from './app'
 import { elt } from './dom'
 import { getRandomInt } from './random'
-import { operations, func } from './app'
 
 const calculateResult = (list, operator) => list.reduce((acc, item) => func[operator](acc, item))
 
@@ -16,7 +16,7 @@ const nextAddition = () => {
   return [rndRows, rndCols]
 }
 
-const nextOperation = (app, rowsEl, colsEl) => {
+const nextOperation = (rowsEl, colsEl) => {
   let [rndRows, rndCols] = [0, 0]
   switch (app.board.operation) {
     case operations.add: [rndRows, rndCols] = nextAddition()
@@ -28,11 +28,11 @@ const nextOperation = (app, rowsEl, colsEl) => {
   rowsEl.value = rndRows
   colsEl.value = rndCols
 
-  app.board.clear()
-  app.board.paint(rndRows, rndCols)
+  app.clearBoard()
+  app.paintBoard(rndRows, rndCols)
 }
 
-function form (app) {
+function form () {
   const operation = app.board.operation
   const formEl = elt('form', {
     name: 'equation',
@@ -58,7 +58,7 @@ function form (app) {
       target.result.focus()
 
       if (!isSuccess) return
-      nextOperation(app, rowsEl, colsEl)
+      nextOperation(rowsEl, colsEl)
     }
   })
 
@@ -66,8 +66,10 @@ function form (app) {
     type: 'number',
     min: 0,
     onblur: event => {
+      const inputEl = event.target
+      app.setActiveElementId(`#${inputEl.id}`)
       setTimeout(() => {
-        if (document.activeElement.type !== 'number') event.target.focus()
+        if (document.activeElement.type !== 'number') inputEl.focus()
       }, 0)
     },
   }
@@ -77,9 +79,9 @@ function form (app) {
       resultEl.value = ''
       const rows = Number(rowsEl.value)
       const columns = Number(colsEl.value)
-      app.board.clear()
+      app.clearBoard()
       if (rows === 0 || columns === 0) return
-      app.board.paint(rows, columns)
+      app.paintBoard(rows, columns)
     },
     ...inputElConfig
   }
@@ -105,7 +107,7 @@ function form (app) {
     id: 'check',
     type: 'submit'
   }, 'Sprawdź wynik')
-  nextOperation(app, rowsEl, colsEl)
+  nextOperation(rowsEl, colsEl)
 
   formEl.appendChild(rowsEl)
   formEl.appendChild(document.createTextNode(operation))
