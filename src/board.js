@@ -55,17 +55,20 @@ class Board {
       return
     }
     if (this.operation === operations.add) {
-      for (let i = 0; i < this.#tds.length; i += 1) {
+      const sum = rows + cols
+      for (let i = 0; i < sum; i += 1) {
         if (i < rows) {
           this.#tds[i].style.backgroundColor = '#ffaead'
-        } else if (i < rows + cols) {
+        } else if (i < sum) {
           this.#tds[i].style.backgroundColor = '#b80000'
         }
       }
+      return
     }
     if (this.operation === operations.sub) {
-      for (let i = 0; i < this.#tds.length; i += 1) {
-        if (i < rows - cols) {
+      const diff = rows - cols
+      for (let i = 0; i < rows; i += 1) {
+        if (i < diff) {
           this.#tds[i].style.backgroundColor = '#ffaead'
         } else if (i < rows) {
           this.#tds[i].style.backgroundColor = '#ffd5d4'
