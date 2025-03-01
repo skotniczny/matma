@@ -52,18 +52,21 @@ const operations = {
   add: '+',
   sub: '−',
   multiply: '×',
+  div: '÷'
 }
 
 const boardCaption = {
   [operations.multiply]: 'Tabliczka mnożenia',
   [operations.add]: 'Dodawanie',
-  [operations.sub]: 'Odejmowanie'
+  [operations.sub]: 'Odejmowanie',
+  [operations.div]: 'Dzielenie'
 }
 
 const func = {
   [operations.add]: (a, b) => a + b,
   [operations.sub]: (a, b) => a - b,
   [operations.multiply]: (a, b) => a * b,
+  [operations.div]: (a, b) => a / b
 }
 
 const nextArgumentsFunc = {
@@ -81,6 +84,11 @@ const nextArgumentsFunc = {
     const rndRows = getRandomInt(1, 10)
     const rndCols = getRandomInt(1, 10)
     return [rndRows, rndCols]
+  },
+  [operations.div]: () => {
+    const rndRows = getRandomInt(1, 10)
+    const rndCols = getRandomInt(1, 10)
+    return [rndRows * rndCols, rndCols]
   }
 }
 
@@ -95,6 +103,11 @@ const initApp = (path, text) => {
       history.pushState({}, '', `.${path}`)
       document.title = `Matma | ${text}`
       app.init(new Board(10, 10, operations.sub))
+      break
+    case '/dzielenie':
+      history.pushState({}, '', `.${path}`)
+      document.title = `Matma | ${text}`
+      app.init(new Board(10, 10, operations.div))
       break
     default:
       history.pushState({}, '', './')

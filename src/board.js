@@ -13,7 +13,7 @@ class Board {
     const output = []
     const table = elt('table', { className: 'calc-table' })
     const tbody = elt('tbody')
-    const rowOffset = this.operation === operations.multiply ? 1 : 0
+    const rowOffset = this.operation === operations.multiply || this.operation === operations.div ? 1 : 0
 
     const code = 'A'.charCodeAt(0)
     for (let i = 0; i < this.rows; i += 1) {
@@ -41,6 +41,15 @@ class Board {
       for (const item of this.#tds) {
         if (item.dataset.row <= rows && item.dataset.col <= cols) {
           item.style.backgroundColor = '#ffaead'
+        }
+      }
+      return
+    }
+    if (this.operation === operations.div) {
+      const result = rows / cols
+      for (const item of this.#tds) {
+        if (item.dataset.row <= result && item.dataset.col <= cols) {
+          item.style.backgroundColor = item.dataset.col > 1 ? '#ffaead' : '#b80000'
         }
       }
       return
