@@ -5,7 +5,10 @@ const calculateResult = (list, operator) => list.reduce((acc, item) => func[oper
 
 const nextOperation = (rowsEl, colsEl) => {
   const next = nextArgumentsFunc[app.board.operation]
-  const [rndRows, rndCols] = next()
+  let [rndRows, rndCols] = next()
+  while (app.board.operation === operations.multiply && rndRows * rndCols > 30) {
+    [rndRows, rndCols] = next()
+  }
 
   rowsEl.value = rndRows
   colsEl.value = rndCols
