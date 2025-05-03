@@ -6,7 +6,7 @@ const calculateResult = (list, operator) => list.reduce((acc, item) => func[oper
 const nextOperation = (rowsEl, colsEl) => {
   const next = nextArgumentsFunc[app.board.operation]
   let [rndRows, rndCols] = next()
-  while (app.board.operation === operations.multiply && rndRows * rndCols > 30) {
+  while (app.board.operation === operations.div && rndRows > 30) {
     [rndRows, rndCols] = next()
   }
 
