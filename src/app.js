@@ -1,4 +1,3 @@
-import Board from './board'
 import Stats from './stats'
 import form from './form'
 import resultsTable from './resultTable'
@@ -92,30 +91,5 @@ const nextArgumentsFunc = {
   }
 }
 
-const initApp = (path, text) => {
-  switch (path) {
-    case '/dodawanie':
-      history.pushState({}, '', `.${path}`)
-      document.title = `Matma | ${text}`
-      app.init(new Board(10, 10, operations.add))
-      break
-    case '/odejmowanie':
-      history.pushState({}, '', `.${path}`)
-      document.title = `Matma | ${text}`
-      app.init(new Board(10, 10, operations.sub))
-      break
-    case '/dzielenie':
-      history.pushState({}, '', `.${path}`)
-      document.title = `Matma | ${text}`
-      app.init(new Board(10, 10, operations.div))
-      break
-    default:
-      history.pushState({}, '', './')
-      document.title = 'Matma | Tabliczka mnożenia'
-      app.init(new Board(10, 10, operations.multiply))
-  }
-  if (app.activeElementId) $(app.activeElementId).focus()
-}
-
-export { operations, func, nextArgumentsFunc, boardCaption, initApp }
+export { operations, func, nextArgumentsFunc, boardCaption }
 export default app

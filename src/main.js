@@ -1,12 +1,13 @@
 import './style.css'
-import { initApp } from './app'
+import { route, initRouter } from './router'
 import { qS as $ } from './dom'
 
-initApp('/' + window.location.pathname.split('/').pop())
+initRouter()
+route(window.location.pathname)
 
 $('#appMenu').addEventListener('click', event => {
   event.preventDefault()
   const el = event.target
   if (el.tagName !== 'A') return
-  initApp(el.pathname, el.textContent)
+  route(el.pathname)
 })
