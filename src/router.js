@@ -21,20 +21,26 @@ const routes = {
   }
 }
 
+function lastPathSegment (path) {
+  return path.split('/').pop()
+}
+
 function renderRoute (path) {
-  const config = routes[path] || routes['/']
+  path = lastPathSegment(path)
+  const config = routes[`/${path}`] || routes['/']
   document.title = config.title
   app.init(config.board())
   if (app.activeElementId) $(app.activeElementId).focus()
 }
 
 export function route (path) {
-  history.pushState({}, '', path)
+  path = lastPathSegment(path)
+  history.pushState({}, '', `./${path}`)
   renderRoute(path)
 }
 
 export function initRouter () {
   window.addEventListener('popstate', () => {
-    renderRoute(location.pathname)
+    renderRoute(window.location.pathname)
   })
 }
