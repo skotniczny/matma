@@ -1,18 +1,19 @@
 import globals from 'globals'
 import css from '@eslint/css'
+import { defineConfig } from 'eslint/config'
 import neostandard from 'neostandard'
 
-export default [
-  ...neostandard({ globals: globals.browser }).map(config => ({
-    ...config,
-    files: ['**/*.js']
-  })),
+export default defineConfig([
+  {
+    files: ['**/*.js'],
+    extends: [neostandard({ globals: globals.browser, })],
+  },
   {
     files: ['**/*.css'],
     plugins: {
       css,
     },
     language: 'css/css',
-    ...css.configs.recommended,
+    extends: [css.configs.recommended],
   },
-]
+])
