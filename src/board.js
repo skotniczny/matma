@@ -3,6 +3,12 @@ import { operations, boardCaption } from './app'
 
 class Board {
   #tds = []
+  #colors = {
+    base: '#ffaead',
+    light: '#ffd5d4',
+    dark: '#b80000'
+  }
+
   constructor (rows, cols, operation) {
     this.rows = rows
     this.cols = cols
@@ -40,7 +46,7 @@ class Board {
     if (this.operation === operations.multiply) {
       for (const item of this.#tds) {
         if (item.dataset.row <= rows && item.dataset.col <= cols) {
-          item.style.backgroundColor = '#ffaead'
+          item.style.backgroundColor = this.#colors.base
         }
       }
       return
@@ -49,7 +55,7 @@ class Board {
       const result = rows / cols
       for (const item of this.#tds) {
         if (item.dataset.row <= result && item.dataset.col <= cols) {
-          item.style.backgroundColor = item.dataset.col > 1 ? '#ffaead' : '#b80000'
+          item.style.backgroundColor = item.dataset.col > 1 ? this.#colors.base : this.#colors.dark
         }
       }
       return
@@ -58,9 +64,9 @@ class Board {
       const sum = rows + cols
       for (let i = 0; i < sum; i += 1) {
         if (i < rows) {
-          this.#tds[i].style.backgroundColor = '#ffaead'
+          this.#tds[i].style.backgroundColor = this.#colors.base
         } else if (i < sum) {
-          this.#tds[i].style.backgroundColor = '#b80000'
+          this.#tds[i].style.backgroundColor = this.#colors.dark
         }
       }
       return
@@ -69,9 +75,9 @@ class Board {
       const diff = rows - cols
       for (let i = 0; i < rows; i += 1) {
         if (i < diff) {
-          this.#tds[i].style.backgroundColor = '#ffaead'
+          this.#tds[i].style.backgroundColor = this.#colors.base
         } else if (i < rows) {
-          this.#tds[i].style.backgroundColor = '#ffd5d4'
+          this.#tds[i].style.backgroundColor = this.#colors.light
         }
       }
     }
