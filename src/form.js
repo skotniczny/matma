@@ -1,5 +1,7 @@
 import app, { operations, func, nextArgumentsFunc } from './app'
-import { elt } from './dom'
+import Button from './components/Button'
+import Input from './components/Input'
+import Form from './components/Form'
 
 const calculateResult = (list, operator) => list.reduce((acc, item) => func[operator](acc, item))
 
@@ -19,33 +21,6 @@ const nextOperation = (rowsEl, colsEl) => {
 
 function form () {
   const operation = app.board.operation
-  const formEl = elt('form', {
-    name: 'equation',
-    className: 'd-inline-flex',
-    onsubmit: event => {
-      event.preventDefault()
-      const target = event.target
-      if (target.result.value === '') {
-        app.updateInfo()
-        return
-      }
-
-      const rows = Number(target.rows.value)
-      const cols = Number(target.columns.value)
-      const result = Number(target.result.value)
-
-      const isSuccess = calculateResult([rows, cols], operation) === result
-
-      app.updateHistory(isSuccess, rows, cols, result)
-      app.updateResults()
-
-      target.result.value = ''
-      target.result.focus()
-
-      if (!isSuccess) return
-      nextOperation(rowsEl, colsEl)
-    }
-  })
 
   const inputElConfig = {
     type: 'number',
@@ -71,37 +46,56 @@ function form () {
     ...inputElConfig
   }
 
-  const rowsEl = elt('input', {
+  const rowsEl = Input({
     id: 'rows',
     name: 'rows',
     ...inputElFactorsConfig
   })
-  const colsEl = elt('input', {
+  const colsEl = Input({
     id: 'columns',
     name: 'columns',
     ...inputElFactorsConfig
   })
-  const resultEl = elt('input', {
+  const resultEl = Input({
     id: 'result',
     name: 'result',
     max: operation === operations.add ? 200 : 100,
     autofocus: true,
     ...inputElConfig
   })
-  const submitButtonEl = elt('button', {
+  const submitButtonEl = Button({
     id: 'check',
-    type: 'submit'
+    type: 'submit',
   }, 'Sprawdź wynik')
   nextOperation(rowsEl, colsEl)
 
-  formEl.appendChild(rowsEl)
-  formEl.appendChild(document.createTextNode(operation))
-  formEl.appendChild(colsEl)
-  formEl.appendChild(document.createTextNode('='))
-  formEl.appendChild(resultEl)
-  formEl.appendChild(submitButtonEl)
+  return Form({
+    name: 'equation',
+    className: 'd-inline-flex',
+    onsubmit: event => {
+      event.preventDefault()
+      const target = event.target
+      if (target.result.value === '') {
+        app.updateInfo()
+        return
+      }
 
-  return formEl
+      const rows = Number(target.rows.value)
+      const cols = Number(target.columns.value)
+      const result = Number(target.result.value)
+
+      const isSuccess = calculateResult([rows, cols], operation) === result
+
+      app.updateHistory(isSuccess, rows, cols, result)
+      app.updateResults()
+
+      target.result.value = ''
+      target.result.focus()
+
+      if (!isSuccess) return
+      nextOperation(rowsEl, colsEl)
+    }
+  }, rowsEl, operation, colsEl, '=', resultEl, submitButtonEl)
 }
 
 export default form

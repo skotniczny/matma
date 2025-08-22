@@ -1,5 +1,6 @@
-import { qS as $, elt } from './dom'
+import { qS as $ } from './dom'
 import { operations, boardCaption } from './app'
+import Table from './components/Table'
 
 class Board {
   #tds = []
@@ -17,8 +18,6 @@ class Board {
 
   render () {
     const output = []
-    const table = elt('table', { className: 'calc-table' })
-    const tbody = elt('tbody')
     const rowOffset = this.operation === operations.multiply || this.operation === operations.div ? 1 : 0
 
     const code = 'A'.charCodeAt(0)
@@ -32,12 +31,14 @@ class Board {
       row += '</tr>'
       output.push(row)
     }
-    tbody.innerHTML = output.join('')
-    table.appendChild(tbody)
-    const caption = elt('caption', {
-      textContent: boardCaption[this.operation]
-    })
-    table.appendChild(caption)
+
+    const table = Table(
+      { className: 'calc-table' },
+      {
+        tbody: output.join(''),
+        caption: boardCaption[this.operation]
+      }
+    )
     this.#tds = Array.from($('td', table))
     return table
   }

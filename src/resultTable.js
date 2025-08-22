@@ -1,4 +1,4 @@
-import { elt } from './dom'
+import Table from './components/Table'
 
 const rowTemplate = (strings, idx, key, repetitions, correctAnswers, ratio) => {
   const str1 = strings[0]
@@ -35,9 +35,10 @@ export default function resultsTable (resultArray) {
         <tr>
       `)
   }
-  const table = elt('table', {
+  return Table({
     className: 'table',
-    innerHTML: output.join(''),
+  },
+  {
+    tbody: output.join('')
   })
-  return table
 }
