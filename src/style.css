@@ -71,13 +71,17 @@ h1 {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.form-input {
+  border-color: #646cff;
+}
+
 [type="number"] {
   font-size: 2rem;
   max-width: 4rem;
   padding: 0.25rem 0.5rem;
 }
 
-button {
+.btn {
   border-radius: 8px;
   border: 1px solid #ddd;
   padding: 0.6em 1.2em;
@@ -90,13 +94,13 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
+.btn:hover {
   border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.btn:focus,
+.btn:focus-visible {
+  outline: 4px solid;
 }
 
 @media (prefers-color-scheme: light) {
@@ -109,7 +113,7 @@ button:focus-visible {
     color: #747bff;
   }
 
-  button {
+  .btn {
     background-color: #f9f9f9;
   }
 
@@ -209,9 +213,10 @@ button:focus-visible {
   left: 0;
   right: 0;
   z-index: 1;
+  margin: 0;
+  padding: 0.25rem;
 }
 
-.app-menu,
 .app-menu ul {
   padding: 0;
 }
