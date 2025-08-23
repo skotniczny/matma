@@ -75,6 +75,10 @@ h1 {
   border-color: #646cff;
 }
 
+.form-input:focus {
+  outline: 1px solid #646cff;
+}
+
 [type="number"] {
   font-size: 2rem;
   max-width: 4rem;
