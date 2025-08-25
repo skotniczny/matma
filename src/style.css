@@ -1,4 +1,6 @@
 :root {
+  --matma-cell-width: 28px;
+  --matma-cell-height: var(--matma-cell-width);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -10,6 +12,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
 a {
@@ -40,19 +48,26 @@ h1 {
 
 .d-inline-flex {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.5em;
 }
 
 #app {
+  min-width: 0;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.5rem;
   text-align: center;
 }
 
+#results {
+  overflow: auto;
+}
+
 .logo {
-  height: 6em;
+  height: 9em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -67,8 +82,12 @@ h1 {
 }
 
 .card {
-  padding: 2em;
+  padding: 0.5rem;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card:empty {
+  display: none;
 }
 
 .form-input {
@@ -76,12 +95,14 @@ h1 {
 }
 
 .form-input:focus {
-  outline: 1px solid #646cff;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: #646cff;
 }
 
 [type="number"] {
   font-size: 2rem;
-  max-width: 4rem;
+  max-width: 5rem;
   padding: 0.25rem 0.5rem;
 }
 
@@ -104,7 +125,8 @@ h1 {
 
 .btn:focus,
 .btn:focus-visible {
-  outline: 4px solid;
+  outline-width: 4px;
+  outline-style: solid;
 }
 
 @media (prefers-color-scheme: light) {
@@ -155,7 +177,7 @@ h1 {
 .calc-table tr::before,
 .calc-table tr::after {
   display: flex;
-  padding: 16px 0;
+  line-height: var(--matma-cell-height);
   width: 1rem;
 }
 
@@ -177,8 +199,9 @@ h1 {
   border: 1px solid #ffaead;
   text-align: center;
   vertical-align: middle;
-  height: 50px;
-  width: 50px;
+  height: var(--matma-cell-height);
+  width: var(--matma-cell-width);
+  padding: 0;
 }
 
 .calc-table tr:first-child td {
@@ -188,10 +211,15 @@ h1 {
 .calc-table tr:first-child td::before {
   content: attr(data-col);
   position: absolute;
-  top: -20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  line-height: 1;
+  transform: translateY(calc(-100% - 2px));
 }
 
 .history {
+  display: none;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -231,5 +259,30 @@ h1 {
 
 .app-menu ul li {
   display: inline;
-  margin: 0 1em;
+  margin: 0 0.25rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --matma-cell-width: 56px;
+    --matma-cell-height: var(--matma-cell-width);
+  }
+
+  #app {
+    padding: 2rem;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+
+  .app-menu ul li {
+    margin: 0 1em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .history {
+    display: block;
+  }
 }
