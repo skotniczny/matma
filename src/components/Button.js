@@ -1,3 +1,4 @@
+import './Button.css'
 import { elt } from '../dom'
 
 export default function Button ({ className, ...props }, ...children) {

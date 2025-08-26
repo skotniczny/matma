@@ -1,0 +1,22 @@
+.btn {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--matma-btn-bg);
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.btn:hover {
+  border-color: #646cff;
+}
+
+.btn:focus,
+.btn:focus-visible {
+  outline-width: 4px;
+  outline-style: solid;
+}
