@@ -1,0 +1,35 @@
+.history {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0 0.5rem 0 2rem;
+  text-align: left;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+.history-entry {
+  background-color: var(--matma-card-bg);
+  border-radius: 2rem;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 1rem;
+  line-height: 1;
+}
+
+.history-entry::marker {
+  color: var(--matma-color);
+}
+
+@media (min-width: 1200px) {
+  .history {
+    display: block;
+  }
+}
+
+.entry-operation,
+.history-entry.success .entry-result {
+  font-weight: 600;
+}

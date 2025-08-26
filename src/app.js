@@ -8,7 +8,6 @@ import { getRandomInt } from './random'
 const app = {
   stats: new Stats(),
   activeElementId: '',
-  counter: 0,
   init (board) {
     this.board = board
     $('#tableContainer').replaceChildren(board.render())
@@ -22,21 +21,20 @@ const app = {
   },
   updateHistory (isSuccess, rows, cols, result) {
     const operation = this.board.operation
-    const statusText = `${++this.counter}. ${this.updateInfo(isSuccess)} - `
-    const operationEl = elt('span', { className: 'entry-operation' }, `${rows} ${operation} ${cols} =`)
+    const statusText = `${isSuccess ? '🏆' : '❌'} → `
+    const operationEl = elt('span', { className: 'entry-operation' }, `${rows} ${operation} ${cols}`)
     const resultEl = elt(isSuccess ? 'span' : 's', { className: 'entry-result', textContent: result })
     $('.history')[0].prepend(HistoryEntry({
       className: `${isSuccess ? 'success' : 'error'}`
-    }, statusText, operationEl, ' ', resultEl))
+    }, statusText, operationEl, ' = ', resultEl))
     this.stats.add(`${rows}${operation}${cols}`, isSuccess)
   },
   updateInfo (isSuccess) {
     let message = 'Podaj wynik!'
     if (isSuccess !== undefined) {
-      message = isSuccess ? 'Gratulacje!' : 'Błąd'
+      message = isSuccess ? 'Gratulacje! 🏆' : 'Błąd ❌'
     }
     $('h1')[0].textContent = message
-    return message
   },
   clearBoard () {
     this.board.clear()

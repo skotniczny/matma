@@ -53,6 +53,7 @@ const handleOnSubmit = (event, operation, rowsEl, colsEl) => {
   const isSuccess = calculateResult([rows, cols], operation) === result
 
   app.updateHistory(isSuccess, rows, cols, result)
+  app.updateInfo(isSuccess)
   app.updateResults()
 
   target.result.value = ''
