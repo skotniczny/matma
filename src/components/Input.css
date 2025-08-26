@@ -1,0 +1,15 @@
+.form-input {
+  border-color: #646cff;
+}
+
+.form-input:focus {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: #646cff;
+}
+
+.form-input[type="number"] {
+  font-size: 2rem;
+  max-width: 5rem;
+  padding: 0.25rem 0.5rem;
+}

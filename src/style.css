@@ -91,23 +91,6 @@ h1 {
   display: none;
 }
 
-.form-input {
-  border-color: #646cff;
-}
-
-.form-input:focus {
-  outline-width: 1px;
-  outline-style: solid;
-  outline-color: #646cff;
-}
-
-[type="number"] {
-  font-size: 2rem;
-  max-width: 5rem;
-  padding: 0.25rem 0.5rem;
-}
-
-
 @media (prefers-color-scheme: light) {
   :root {
     --matma-btn-bg: #f9f9f9;

@@ -1,3 +1,4 @@
+import './Input.css'
 import { elt } from '../dom'
 
 export default function Input ({ className, ...props }) {
