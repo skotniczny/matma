@@ -2,6 +2,7 @@ import Stats from './stats'
 import form from './form'
 import resultsTable from './resultTable'
 import { qS as $, elt } from './dom'
+import HistoryEntry from './components/HistoryEntry'
 import { getRandomInt } from './random'
 
 const app = {
@@ -21,10 +22,12 @@ const app = {
   },
   updateHistory (isSuccess, rows, cols, result) {
     const operation = this.board.operation
-    const elInfo = elt(isSuccess ? 'span' : 's', { textContent: result }).outerHTML
-    const newItem = `<div class=${isSuccess ? 'success' : 'error'}>${++this.counter}. ${this.updateInfo(isSuccess)} - ${rows} ${operation} ${cols} = ${elInfo}</div>`
-    const historyEl = $('.history')[0]
-    historyEl.innerHTML = newItem + historyEl.innerHTML
+    const statusText = `${++this.counter}. ${this.updateInfo(isSuccess)} - `
+    const operationEl = elt('span', { className: 'entry-operation' }, `${rows} ${operation} ${cols} =`)
+    const resultEl = elt(isSuccess ? 'span' : 's', { className: 'entry-result', textContent: result })
+    $('.history')[0].prepend(HistoryEntry({
+      className: `${isSuccess ? 'success' : 'error'}`
+    }, statusText, operationEl, ' ', resultEl))
     this.stats.add(`${rows}${operation}${cols}`, isSuccess)
   },
   updateInfo (isSuccess) {
