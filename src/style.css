@@ -1,4 +1,5 @@
 :root {
+  --matma-app-padding: 0.5rem;
   --matma-cell-width: 28px;
   --matma-cell-height: var(--matma-cell-width);
   --matma-color: rgba(255, 255, 255, 0.87);
@@ -7,6 +8,8 @@
   --matma-link-color: #646cff;
   --matma-link-hover-color: #535bf2;
   --matma-card-bg: rgba(255, 255, 255, 0.1);
+  --matma-card-padding: 0.5rem;
+  --matma-appmenu-ul-li-margin: 0 0.25rem;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -28,6 +31,16 @@
     --matma-btn-bg: #f9f9f9;
     --matma-link-hover-color: #747bff;
     --matma-card-bg: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --matma-app-padding: 2rem;
+    --matma-cell-width: 56px;
+    --matma-cell-height: var(--matma-cell-width);
+    --matma-card-padding: 2rem;
+    --matma-appmenu-ul-li-margin: 0 1rem
   }
 }
 
@@ -75,7 +88,7 @@ h1 {
   min-width: 0;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: var(--matma-app-padding);
   text-align: center;
 }
 
@@ -99,7 +112,7 @@ h1 {
 }
 
 .card {
-  padding: 0.5rem;
+  padding: var(--matma-card-padding);
   background-color: var(--matma-card-bg);
 }
 
@@ -205,24 +218,5 @@ h1 {
 
 .app-menu ul li {
   display: inline;
-  margin: 0 0.25rem;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --matma-cell-width: 56px;
-    --matma-cell-height: var(--matma-cell-width);
-  }
-
-  #app {
-    padding: 2rem;
-  }
-
-  .card {
-    padding: 2rem;
-  }
-
-  .app-menu ul li {
-    margin: 0 1em;
-  }
+  margin: var(--matma-appmenu-ul-li-margin);
 }
