@@ -32,7 +32,7 @@ export default function resultsTable (resultArray) {
           <td class="text-right">${repetitions}</td>
           <td class="text-right">${correctAnswers}</td>
           <td class="text-right">${correctAnswers / repetitions}%</td>
-        <tr>
+        </tr>
       `)
   }
   return Table({
