@@ -29,9 +29,9 @@ export default function resultsTable (resultArray) {
         <tr>
           <td>${i}</td>
           <td>${key}</td>
-          <td>${repetitions}</td>
-          <td>${correctAnswers}</td>
-          <td>${correctAnswers / repetitions}%</td>
+          <td class="text-right">${repetitions}</td>
+          <td class="text-right">${correctAnswers}</td>
+          <td class="text-right">${correctAnswers / repetitions}%</td>
         <tr>
       `)
   }

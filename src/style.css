@@ -128,7 +128,6 @@ h1 {
 .table td,
 .table th {
   padding: 0.25rem 0.75rem;
-  text-align: left;
   border-top: 1px solid #646cff;
 }
 
@@ -219,4 +218,8 @@ h1 {
 .app-menu ul li {
   display: inline;
   margin: var(--matma-appmenu-ul-li-margin);
+}
+
+.text-right {
+  text-align: right;
 }
