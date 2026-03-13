@@ -21,18 +21,18 @@ function THead ({ className, ...props }) {
   })
 }
 
-function TFooter ({ className, ...props }) {
-  return elt('tfooter', {
-    className: `table-footer ${className || ''}`.trim(),
+function TFoot ({ className, ...props }) {
+  return elt('tfoot', {
+    className: `table-foot ${className || ''}`.trim(),
     ...props
   })
 }
 
-export default function Table ({ className, ...props }, { tbody, thead, tfooter, caption }, ...children) {
+export default function Table ({ className, ...props }, { tbody, thead, tfoot, caption }, ...children) {
   const tableContent = [
     thead ? THead({ innerHTML: thead }) : null,
     tbody ? TBody({ innerHTML: tbody }) : null,
-    tfooter ? TFooter({ innerHTML: tfooter }) : null,
+    tfoot ? TFoot({ innerHTML: tfoot }) : null,
     caption ? Caption({}, caption) : null
   ].filter(item => item)
   return elt('table', {
